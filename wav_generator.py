@@ -2,6 +2,7 @@ import numpy as np
 import wavio
 from dataclasses import dataclass
 import operator
+import os
 
 @dataclass
 class Signal:
@@ -42,7 +43,9 @@ class Exporter:
         return array
 
     def export_wav_file(self, file_name: str):
-        wavio.write(file_name, self.output_array, self.rate, sampwidth=3)
+        if not os.path.exists('wav'):
+            os.mkdir('wav')
+        wavio.write(f'wav/{file_name}', self.output_array, self.rate, sampwidth=3)
 
 
 if __name__ == '__main__':
