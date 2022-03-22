@@ -152,6 +152,7 @@ class Controller:
         self.add_window.add_btn.clicked.connect(self.handle_new_signal)
         self.popup.btn.clicked.connect(self.handle_save)
         self.init_add_enter()
+        self.popup.box.returnPressed.connect(self.handle_save)
 
     def init_add_enter(self):
         self.add_window.name_box.returnPressed.connect(self.handle_new_signal)
