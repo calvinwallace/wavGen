@@ -25,6 +25,17 @@ class Exporter:
         self.rate = rate
         self.signals = []
 
+    @property
+    def is_empty(self) -> bool:
+        """Gibt wahr zurück wenn self.signals leer ist
+
+        :returns: bool
+        """
+        if len(self.signals) == 0:
+            return True
+        else:
+            return False
+
     def create_new_signal(self, name: str, freq: float, factor: float, start: int, end: int):
         """Neue Schwingung hinzufügen
 
