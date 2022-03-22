@@ -16,7 +16,11 @@ class Signal:
 
 
 class Exporter:
+    """Erstellt Schwingungen und exportiert Signalverlauf als .wav-Datei"""
     def __init__(self, rate: int):
+        """
+        :param rate: Samplerate in Hz
+        """
         self.rate = rate
         self.signals = []
 
