@@ -190,7 +190,6 @@ class Controller:
         QTreeWidgetItem(self.main_window.tree_widget, [name, freq, factor, start, end])
         self.main_window.resize_tree()
         self.toggle_buttons()
-        print(self.main_window.tree_widget.width())
 
     def toggle_buttons(self):
         if not self.exporter.is_empty:
