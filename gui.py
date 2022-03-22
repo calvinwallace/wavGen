@@ -3,6 +3,7 @@ from PyQt6 import QtGui
 from wav_generator import Exporter
 import sys
 
+
 class AddWindow(QWidget):
     def __init__(self):
         super(AddWindow, self).__init__()
@@ -64,18 +65,22 @@ class AddWindow(QWidget):
         self.box_layout.setContentsMargins(0, 0, 0, 0)
         self.content_layout.setContentsMargins(0, 0, 0, 0)
 
+
 class Popup(QWidget):
     def __init__(self):
         super(Popup, self).__init__()
-        self.setWindowTitle('Erfolg')
+        self.setWindowTitle('Exportieren')
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel('WAV erfolgreich exportiert!')
+        self.label = QLabel('Dateinamen wählen')
         self.layout.addWidget(self.label)
-        self.btn = QPushButton('OK')
+        self.box = QLineEdit()
+        self.layout.addWidget(self.box)
+        self.btn = QPushButton('Speichern')
         self.layout.addWidget(self.btn)
         self.adjustSize()
+
 
 class MainWidget(QWidget):
     def __init__(self, add_win: AddWindow, popup: Popup):
@@ -145,7 +150,7 @@ class Controller:
         self.main_window.delete_btn.clicked.connect(self.handle_delete)
         self.main_window.create_btn.clicked.connect(self.handle_create)
         self.add_window.add_btn.clicked.connect(self.handle_new_signal)
-        self.popup.btn.clicked.connect(self.popup.close)
+        self.popup.btn.clicked.connect(self.handle_save)
         self.init_add_enter()
 
     def init_add_enter(self):
@@ -170,8 +175,17 @@ class Controller:
         self.toggle_buttons()
 
     def handle_create(self):
-        self.exporter.export_wav_file('gui_test.wav')
         self.popup.show()
+
+    def handle_save(self):
+        file_name = self.popup.box.text()
+        self.popup.box.setText('')
+        if file_name.endswith('.wav'):
+            fn = file_name
+        else:
+            fn = f'{file_name}.wav'
+        self.exporter.export_wav_file(fn)
+        self.popup.close()
 
     def handle_new_signal(self):
         name = self.add_window.name_box.text()
